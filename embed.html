@@ -12,8 +12,14 @@
 
 <style>
 .fch-ai{--fch-grape:#4f2d54;--fch-grape-soft:#f1eaf3;--fch-orange:#c75b12;--fch-orange-soft:#fbeadf;--fch-ink:#221a27;--fch-muted:#6c6274;--fch-line:#e3dde8;--fch-card:#ffffff;
-  font-family:inherit;color:var(--fch-ink);display:grid;gap:20px;max-width:1000px;margin:0 auto;line-height:1.5}
+  /* Fonts follow the Squarespace site styles. To force a font, replace the var(...) with a name, e.g. "Poppins", sans-serif */
+  --fch-body-font:var(--body-font-font-family, var(--fch-fallback-font));
+  --fch-heading-font:var(--heading-3-font-font-family, var(--heading-font-font-family, var(--fch-body-font)));
+  --fch-meta-font:var(--meta-font-font-family, var(--fch-body-font));
+  --fch-fallback-font:"Helvetica Neue", Arial, sans-serif;
+  font-family:var(--fch-body-font);color:var(--fch-ink);display:grid;gap:20px;max-width:1000px;margin:0 auto;line-height:1.5}
 .fch-ai *{box-sizing:border-box}
+.fch-ai p,.fch-ai div,.fch-ai span,.fch-ai a,.fch-ai input,.fch-ai button{font-family:var(--fch-body-font)}
 .fch-ai__bar{display:grid;gap:12px}
 .fch-ai__search{font:inherit;font-size:16px;width:100%;padding:10px 14px;border:1px solid var(--fch-line);border-radius:8px;background:var(--fch-card);color:var(--fch-ink)}
 .fch-ai__search:focus{outline:2px solid var(--fch-orange);outline-offset:1px}
@@ -26,11 +32,11 @@
 .fch-ai__card--pick{border-top:4px solid var(--fch-grape)}
 .fch-ai__card--radar{border-top:4px solid var(--fch-orange)}
 .fch-ai__meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
-.fch-ai__cat{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fch-muted)}
-.fch-ai__tag{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}
+.fch-ai__cat{font-family:var(--fch-meta-font);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fch-muted)}
+.fch-ai__tag{font-family:var(--fch-meta-font);font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}
 .fch-ai__tag--pick{background:var(--fch-grape-soft);color:var(--fch-grape)}
 .fch-ai__tag--radar{background:var(--fch-orange-soft);color:var(--fch-orange)}
-.fch-ai__name{font-size:20px;line-height:1.25;margin:0;color:var(--fch-grape)}
+.fch-ai__name{font-family:var(--fch-heading-font);font-size:20px;line-height:1.25;margin:0;color:var(--fch-grape)}
 .fch-ai__card p{margin:0;font-size:15px}
 .fch-ai__take{color:var(--fch-muted)}
 .fch-ai__take strong{color:var(--fch-ink)}
