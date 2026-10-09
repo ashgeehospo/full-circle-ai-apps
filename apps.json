@@ -1,4 +1,65 @@
 {
-  "updatedAt": "2026-10-09T20:17:14+00:00",
-  "apps": []
+  "updatedAt": "2026-10-09T20:46:35+00:00",
+  "apps": [
+    {
+      "name": "General AI assistant + free scheduler",
+      "category": "Marketing & social",
+      "url": "https://whitebridge.ai/academy/lesson/a-week-of-restaurant-social-posts-from-one-idea",
+      "whatItDoes": "ChatGPT, Claude or Gemini to write posts, menu descriptions, job ads, SOPs and roster drafts, paired with Meta Business Suite (free) for scheduling.",
+      "why": "The cheapest all-rounder. Needs some prompt templates to be useful, which is a natural toolkit item for the programme. Always check its output before it goes to customers.",
+      "price": "Free tiers · ~USD 20 / mo for a paid plan",
+      "nz": "Yes",
+      "tier": "pick"
+    },
+    {
+      "name": "PostEverywhere",
+      "category": "Marketing & social",
+      "url": "https://posteverywhere.ai/for/restaurants",
+      "whatItDoes": "Schedules posts across Instagram, Facebook and Google Business Profile with AI captions per platform.",
+      "why": "Restaurant-focused and priced for one venue. Turns one photo of a special into a week of posts in under 30 minutes.",
+      "price": "USD 19 / mo (1 location, 50 AI credits)",
+      "nz": "Yes (online)",
+      "tier": "pick"
+    },
+    {
+      "name": "RepliFast",
+      "category": "Reviews",
+      "url": "https://www.capterra.co.nz/software/1102678/RepliFast",
+      "whatItDoes": "AI Google review replies in the venue's voice. Can autopilot good reviews and route low ratings to a human.",
+      "why": "The split between auto-posting 5-star replies and holding back complaints is the right safety model. Free version available.",
+      "price": "Free plan + paid tiers (check site)",
+      "nz": "Yes (Google-based)",
+      "tier": "pick"
+    },
+    {
+      "name": "ShiftTrained",
+      "category": "Staff training",
+      "url": "https://www.capterra.co.nz/software/1098595/ShiftTrained",
+      "whatItDoes": "Upload or photograph the menu; AI generates 100–400 quiz questions on ingredients, allergens, prices and pairings. Staff train on their phones by link, no app.",
+      "why": "Solves high-turnover menu training in minutes. Every plan includes every feature; price only scales with team size. Strong fit for the programme.",
+      "price": "USD 29 / 49 / 99 per mo (20 / 40 / 99 staff); free first menu",
+      "nz": "Yes (web)",
+      "tier": "pick"
+    },
+    {
+      "name": "Diced OS",
+      "category": "Invoices & food cost",
+      "url": "https://apps.apple.com/app/diced-os/id6743304221",
+      "whatItDoes": "iPhone/iPad app: photograph an invoice, AI pulls items and prices, build recipes and see real dish costs.",
+      "why": "Cheapest entry point found. Free up to 20 items, so a food truck or small café can start costing dishes the same day. Pairs well with the Menu Engineering Playbook.",
+      "price": "Free (20 items) · USD 19.99 / mo unlimited, 50 scans",
+      "nz": "App Store, confirm in NZ store",
+      "tier": "radar"
+    },
+    {
+      "name": "Restoke",
+      "category": "Invoices & food cost",
+      "url": "https://www.restoke.ai",
+      "whatItDoes": "Snap or email supplier invoices; AI reads every line, updates ingredient prices and food cost, and sends bills to Xero. Pro adds inventory, recipe costing, ordering and kitchen procedures.",
+      "why": "Kills the weekly invoice data-entry job and catches supplier price creep. Listed for NZ in the Xero App Store. Best fit for food-led venues already on Xero.",
+      "price": "AUD 139 / mo (Essentials) · AUD 219 / mo (Pro)",
+      "nz": "Yes, Xero NZ listed",
+      "tier": "radar"
+    }
+  ]
 }
