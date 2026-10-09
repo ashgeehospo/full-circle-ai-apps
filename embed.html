@@ -1,0 +1,105 @@
+<!-- Full Circle Hospitality: AI app shortlist embed
+     Paste this whole block into a Squarespace Code Block (HTML mode).
+     It reads the live list from DATA_URL, so the page updates itself whenever the list changes. -->
+<div id="fch-ai-apps" class="fch-ai">
+  <div class="fch-ai__bar">
+    <input class="fch-ai__search" id="fch-ai-q" type="search" placeholder="Search apps, e.g. reviews, rostering" aria-label="Search apps">
+    <div class="fch-ai__chips" id="fch-ai-cats" role="group" aria-label="Filter by category"></div>
+  </div>
+  <div class="fch-ai__list" id="fch-ai-list"><p class="fch-ai__empty">Loading the latest app list…</p></div>
+  <p class="fch-ai__foot" id="fch-ai-foot"></p>
+</div>
+
+<style>
+.fch-ai{--fch-grape:#4f2d54;--fch-grape-soft:#f1eaf3;--fch-orange:#c75b12;--fch-orange-soft:#fbeadf;--fch-ink:#221a27;--fch-muted:#6c6274;--fch-line:#e3dde8;--fch-card:#ffffff;
+  font-family:inherit;color:var(--fch-ink);display:grid;gap:20px;max-width:1000px;margin:0 auto;line-height:1.5}
+.fch-ai *{box-sizing:border-box}
+.fch-ai__bar{display:grid;gap:12px}
+.fch-ai__search{font:inherit;font-size:16px;width:100%;padding:10px 14px;border:1px solid var(--fch-line);border-radius:8px;background:var(--fch-card);color:var(--fch-ink)}
+.fch-ai__search:focus{outline:2px solid var(--fch-orange);outline-offset:1px}
+.fch-ai__chips{display:flex;flex-wrap:wrap;gap:8px}
+.fch-ai__chip{font:inherit;font-size:14px;cursor:pointer;border:1px solid var(--fch-line);background:var(--fch-card);color:var(--fch-ink);padding:6px 12px;border-radius:999px}
+.fch-ai__chip[aria-pressed="true"]{background:var(--fch-grape);border-color:var(--fch-grape);color:#fff}
+.fch-ai__chip:focus-visible{outline:2px solid var(--fch-orange);outline-offset:2px}
+.fch-ai__list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.fch-ai__card{background:var(--fch-card);border:1px solid var(--fch-line);border-radius:12px;padding:20px;display:grid;gap:10px;align-content:start}
+.fch-ai__card--pick{border-top:4px solid var(--fch-grape)}
+.fch-ai__card--radar{border-top:4px solid var(--fch-orange)}
+.fch-ai__meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.fch-ai__cat{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--fch-muted)}
+.fch-ai__tag{font-size:12px;font-weight:600;padding:2px 10px;border-radius:999px}
+.fch-ai__tag--pick{background:var(--fch-grape-soft);color:var(--fch-grape)}
+.fch-ai__tag--radar{background:var(--fch-orange-soft);color:var(--fch-orange)}
+.fch-ai__name{font-size:20px;line-height:1.25;margin:0;color:var(--fch-grape)}
+.fch-ai__card p{margin:0;font-size:15px}
+.fch-ai__take{color:var(--fch-muted)}
+.fch-ai__take strong{color:var(--fch-ink)}
+.fch-ai__facts{display:grid;gap:4px;font-size:14px;border-top:1px solid var(--fch-line);padding-top:10px}
+.fch-ai__facts span{color:var(--fch-muted)}
+.fch-ai__link{font-weight:600;color:var(--fch-orange);text-decoration:none;font-size:15px}
+.fch-ai__link:hover{text-decoration:underline}
+.fch-ai__empty{grid-column:1/-1;text-align:center;color:var(--fch-muted);padding:32px;border:1px dashed var(--fch-line);border-radius:12px;margin:0}
+.fch-ai__foot{font-size:13px;color:var(--fch-muted);margin:0}
+</style>
+
+<script>
+(function(){
+  // The public list file, kept up to date by the daily sync.
+  var DATA_URL = "https://ashgeehospo.github.io/full-circle-ai-apps/apps.json";
+
+  var root = document.getElementById("fch-ai-apps");
+  if (!root) return;
+  var listEl = document.getElementById("fch-ai-list");
+  var catsEl = document.getElementById("fch-ai-cats");
+  var qEl = document.getElementById("fch-ai-q");
+  var footEl = document.getElementById("fch-ai-foot");
+  var apps = [], cat = "";
+
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function safeUrl(u){ return /^https:\/\//i.test(u || "") ? u : ""; }
+
+  function renderCats(){
+    var cats = apps.map(function(a){ return a.category; }).filter(function(c, i, all){ return c && all.indexOf(c) === i; }).sort();
+    catsEl.innerHTML = ['<button type="button" class="fch-ai__chip" data-cat="" aria-pressed="' + (cat === "") + '">All</button>']
+      .concat(cats.map(function(c){ return '<button type="button" class="fch-ai__chip" data-cat="' + esc(c) + '" aria-pressed="' + (cat === c) + '">' + esc(c) + '</button>'; })).join("");
+    Array.prototype.forEach.call(catsEl.querySelectorAll("button"), function(b){
+      b.onclick = function(){ cat = b.getAttribute("data-cat"); renderCats(); renderList(); };
+    });
+  }
+
+  function renderList(){
+    var q = qEl.value.trim().toLowerCase();
+    var rows = apps.filter(function(a){
+      return (!cat || a.category === cat) &&
+        (!q || [a.name, a.category, a.whatItDoes, a.why].join(" ").toLowerCase().indexOf(q) !== -1);
+    });
+    if (!apps.length){ listEl.innerHTML = '<p class="fch-ai__empty">Our recommended AI apps will appear here soon.</p>'; return; }
+    if (!rows.length){ listEl.innerHTML = '<p class="fch-ai__empty">No apps match that search.</p>'; return; }
+    listEl.innerHTML = rows.map(function(a){
+      var pick = a.tier === "pick", url = safeUrl(a.url);
+      return '<article class="fch-ai__card fch-ai__card--' + (pick ? "pick" : "radar") + '">' +
+        '<div class="fch-ai__meta"><span class="fch-ai__cat">' + esc(a.category) + '</span>' +
+        '<span class="fch-ai__tag fch-ai__tag--' + (pick ? "pick" : "radar") + '">' + (pick ? "Full Circle pick" : "On our radar") + '</span></div>' +
+        '<h3 class="fch-ai__name">' + esc(a.name) + '</h3>' +
+        '<p>' + esc(a.whatItDoes) + '</p>' +
+        (a.why ? '<p class="fch-ai__take"><strong>Our take:</strong> ' + esc(a.why) + '</p>' : '') +
+        '<div class="fch-ai__facts"><div><span>Price:</span> ' + esc(a.price) + '</div><div><span>Available in NZ:</span> ' + esc(a.nz) + '</div></div>' +
+        (url ? '<a class="fch-ai__link" href="' + esc(url) + '" target="_blank" rel="noopener">Visit ' + esc(a.name) + ' &rarr;</a>' : '') +
+        '</article>';
+    }).join("");
+  }
+
+  qEl.addEventListener("input", renderList);
+
+  fetch(DATA_URL + "?v=" + Date.now(), { cache: "no-store" })
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(data){
+      apps = (data.apps || []).slice().sort(function(a, b){
+        return (a.tier === "pick" ? 0 : 1) - (b.tier === "pick" ? 0 : 1) || String(a.category).localeCompare(b.category) || String(a.name).localeCompare(b.name);
+      });
+      renderCats(); renderList();
+      if (data.updatedAt) footEl.textContent = "List updated " + new Date(data.updatedAt).toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" }) + ". Prices are per venue per month as published by each vendor, excluding GST; check the vendor's site before buying.";
+    })
+    .catch(function(){ listEl.innerHTML = '<p class="fch-ai__empty">The app list couldn\'t load right now. Please refresh the page.</p>'; });
+})();
+</script>
