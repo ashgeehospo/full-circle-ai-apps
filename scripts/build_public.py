@@ -3,14 +3,14 @@
 Usage: python scripts/build_public.py <dump.json> apps.json
 
 The dump is a JSON array of app records (the "data" objects from the register).
-Only apps marked "In programme" or "Shortlist" are published, and only public fields are kept.
+Only apps marked "In programme", "Shortlist" or "Not recommended" are published, and only public fields are kept.
 """
 import json
 import sys
 from datetime import datetime, timezone
 
 PUBLIC_FIELDS = ["name", "category", "url", "whatItDoes", "why", "price", "nz"]
-TIERS = {"In programme": "pick", "Shortlist": "radar"}
+TIERS = {"In programme": "pick", "Shortlist": "radar", "Not recommended": "avoid"}
 
 
 def build(records):
@@ -22,7 +22,8 @@ def build(records):
         app = {k: r.get(k, "") for k in PUBLIC_FIELDS}
         app["tier"] = tier
         apps.append(app)
-    apps.sort(key=lambda a: (a["tier"] != "pick", a["category"], a["name"]))
+    order = {"pick": 0, "radar": 1, "avoid": 2}
+    apps.sort(key=lambda a: (order[a["tier"]], a["category"], a["name"]))
     return {"updatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"), "apps": apps}
 
 
