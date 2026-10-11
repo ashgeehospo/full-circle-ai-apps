@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-09T20:46:35+00:00",
+  "updatedAt": "2026-10-11T16:56:41+00:00",
   "apps": [
     {
       "name": "General AI assistant + free scheduler",
@@ -29,6 +29,16 @@
       "why": "The split between auto-posting 5-star replies and holding back complaints is the right safety model. Free version available.",
       "price": "Free plan + paid tiers (check site)",
       "nz": "Yes (Google-based)",
+      "tier": "pick"
+    },
+    {
+      "name": "Droppah",
+      "category": "Rostering",
+      "url": "https://www.droppah.com/nz",
+      "whatItDoes": "Rostering built for hospitality: AI auto-rostering that weighs skills, availability, shift preferences and wage costs, plus shift costing against revenue budgets, a photo time clock, shift swaps and team chat. Approved timesheets flow straight into PayHero, with Xero, Square and Lightspeed integrations.",
+      "why": "The best value rostering tool on the list. It's free for up to 10 staff with every feature, and NZD 4 per rostered staff member after that, with no base fee or lock-in, so most small venues pay nothing or very little. Made by Flexitime, the company behind PayHero, so it's built for NZ.",
+      "price": "Free (up to 10 staff) · NZD 4 per staff / mo (The Works) · NZD 2 time clock only; excl. GST; 14-day trial",
+      "nz": "Yes, NZ pricing and PayHero integration",
       "tier": "pick"
     },
     {
